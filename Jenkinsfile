@@ -1,10 +1,24 @@
 pipeline {
     agent any
-    tool 'Maven'
+    tool {
+        maven "Maven"
+    }
+
     stages {
-        stage("Building Stage") {
+        stage ("Checkout stage") {
             steps {
-                sh "mvn clean package"
+                echo "this is a checkout stage"
+            }
+        }
+        stage ("Build Stage") {
+            steps {
+                echo "this is a Build stage"
+            }
+        }
+
+        stage ("Deploy Stage") {
+            steps {
+                echo "this is my deployment stage"
             }
         }
     }
