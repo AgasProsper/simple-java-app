@@ -5,20 +5,20 @@ pipeline {
     }
 
     stages {
-        stage ("Checkout stage") {
+        stage ("Testing stage") {
             steps {
-                echo "this is a checkout stage"
+                echo "No test for now"
             }
         }
         stage ("Build Stage") {
             steps {
-                echo "this is a Build stage"
+                sh "mvn clean package"
             }
         }
 
-        stage ("Deploy Stage") {
+        stage ("Build DockerImage") {
             steps {
-                echo "this is my deployment stage"
+                sh "docker build -t simple-java-app ."
             }
         }
     }
