@@ -18,7 +18,17 @@ pipeline {
 
         stage ("Build DockerImage") {
             steps {
-                sh "docker build -t simple-java-app ."
+                sh "docker build -t agasprosper/simple-java-pipeline-project:${BUILD_ID} ."
+            }
+        } 
+        stage ("Pushing to Docker Hub") {
+            steps {
+                script{
+                    withCredentials([usernamePassword(credentialId: 'jenkins-to-access-dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh "docker push agasprosper/simple-java-pipeline-project:${BUILD_ID}"
+                    }
+                }
             }
         }
     }
