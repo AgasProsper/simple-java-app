@@ -24,7 +24,7 @@ pipeline {
         stage ("Pushing to Docker Hub") {
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialId: 'jenkins-to-access-dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'jenkins-to-access-dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh "docker push agasprosper/simple-java-pipeline-project:${BUILD_ID}"
                     }
