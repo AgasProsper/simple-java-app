@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  database:
+    container_name: database
+    image: postgres
+    environment:
+      - POSTGRES_DB=camille
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USERNAME=postgres
+    ports:
+      - "5432:5432"
+
+  backend-service:
+    container_name: simple-java-app
+    image: ${IMAGE_NAME}
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - POSTGRES_DB=camille
+      - POSTGRES_PASSWORD=password
+
+    ports:
+      - '8080:8080'
