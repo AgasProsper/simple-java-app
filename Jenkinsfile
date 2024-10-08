@@ -39,9 +39,9 @@ pipeline {
                 script {
                     def ShellCmd = "bash ./script.sh $IMAGE_NAME"
                     sshagent(["ssh-key"]) {
-                        sh "scp -o StrictHostKeyCheching=no docker-compose.yml ec2-user@3.82.127.199:/home/ec2-user"
-                        sh "scp -o StrictHostKeyCheching=no script.sh ec2-user@3.82.127.199:/home/ec2-user"
-                        sh "ssh -o StrictHostKeyCheching=no ec2-user@3.82.127.199:/home/ec2-user ${ShellCmd}" 
+                        sh "scp -o StrictHostKeyCheching=no docker-compose.yml ec2-user@18.234.68.229 :/home/ec2-user"
+                        sh "scp -o StrictHostKeyCheching=no script.sh ec2-user@18.234.68.229 :/home/ec2-user"
+                        sh "ssh -o StrictHostKeyCheching=no ec2-user@18.234.68.229 :/home/ec2-user ${ShellCmd}" 
                         echo "SUCCESS"
                     }
                     
