@@ -1,3 +1,4 @@
+def gv
 pipeline{
     environment{
         IMAGE_NAME="simple-java-ap"
@@ -6,7 +7,16 @@ pipeline{
     tools{
         maven "Maven"
     }
+
     stages{
+        stage("init"){
+            steps{
+                script{
+                    gv = load "script.groovy"
+                }
+            }
+        }
+
         stage ("Testing Stage") {
             steps{
                 echo "No test for now"
@@ -14,12 +24,17 @@ pipeline{
         }
         stage ("Building stage") {
             steps{
-                sh "mvn clean package"
+                gv.buildJar()
             }
         }
         stage ("Build DockerImage") {
             steps{
-                sh "docker build -t ${IMAGE_NAME}:${BUILD_ID} ."
+                gv.buildImage()
+            }
+        }
+        stage ("Pushing Image to Repo"){
+            steps{
+                gv.PushImage()
             }
         }
     }
