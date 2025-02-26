@@ -9,7 +9,7 @@ pipeline{
     }
 
     stages{
-        stage("init"){
+        stage("init") {
             steps{
                 script{
                     gv = load "script.groovy"
@@ -32,7 +32,7 @@ pipeline{
                 gv.buildImage()
             }
         }
-        stage ("Pushing Image to Repo"){
+        stage ("Pushing Image to Repo") {
             steps{
                 gv.PushImage()
             }
