@@ -22,6 +22,13 @@ pipeline{
                 sh "docker build -t ${IMAGE_NAME}:${BUILD_ID} ."
             }
         }
-       
+        stage ("push to docker hub") {
+            steps{
+                withCredentials([usernamePassword(credentialId: "Jekins-DockerHub-cred", passwordVariable: "PASS",usernameVariable: "USER"  )]){
+                    sh "echo $PASS | docker login -u $USER --password-stdin"
+                    sh "docker push ${IMAGE_NAME}:${BUILD_ID}"
+                } 
+            }
+        }
     }
 }
