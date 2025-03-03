@@ -1,22 +1,12 @@
-def gv
 pipeline{
     environment{
-        IMAGE_NAME="simple-java-ap"
+        IMAGE_NAME="prosperagada/simple-java-app"
     }
     agent any
     tools{
         maven "Maven"
     }
-
     stages{
-        stage("init") {
-            steps{
-                script{
-                    gv = load "script.groovy"
-                }
-            }
-        }
-
         stage ("Testing Stage") {
             steps{
                 echo "No test for now"
@@ -24,17 +14,20 @@ pipeline{
         }
         stage ("Building stage") {
             steps{
-                gv.buildJar()
+                sh "mvn clean package"
             }
         }
         stage ("Build DockerImage") {
             steps{
-                gv.buildImage()
+                sh "docker build -t ${IMAGE_NAME}:${BUILD_ID} ."
             }
         }
-        stage ("Pushing Image to Repo") {
+        stage ("push to docker hub") {
             steps{
-                gv.PushImage()
+                withCredentials([usernamePassword(credetialId: "Jekins-DockerHub-cred", passwordVariable: "PASS",usernameVariable: "USER"  )]){
+                    sh "echo $PASS | docker login -u $USER --password-stdin"
+                    sh "docker push ${IMAGE_NAME}:${BUILD_ID}"
+                } 
             }
         }
     }
