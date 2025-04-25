@@ -35,7 +35,7 @@ pipeline {
         }
         stage("Deploy Stage") {
             steps {
-                sh "kubectl create deployment nginx --image=ngix"
+                sh "kubectl create deployment nginx --image=025600686378.dkr.ecr.us-east-2.amazonaws.com/simple-jave-app:6"
             }
         }
     }
