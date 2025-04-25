@@ -33,5 +33,10 @@ pipeline {
                 }
             }
         }
+        stage("Deploy Stage") {
+            steps {
+                sh "kubectl create deployment nginx --image=ngix"
+            }
+        }
     }
 }
