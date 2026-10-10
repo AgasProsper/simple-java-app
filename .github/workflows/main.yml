@@ -29,5 +29,5 @@ jobs:
             
             - name: Push docker image
               run: |
-                docker login -u prosperagada -p ${{secrets.DOCKERHUB_TOKEN}}
+                docker login -u prosperagada -p ${{ secrets.DOCKERHUB_TOKEN }}
                 docker push prosperagada/welcome-app-java:latest
