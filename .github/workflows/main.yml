@@ -10,6 +10,7 @@ permissions:
 jobs:
     build-containerize-push:
         runs-on: ubuntu-latest
+        environment: stagging
         steps:
             - name: Checkout source code
               uses: actions/checkout@v4
@@ -31,3 +32,4 @@ jobs:
               run: |
                 docker login -u prosperagada -p ${{ secrets.DOCKERHUB_TOKEN }}
                 docker push prosperagada/welcome-app-java:latest
+
