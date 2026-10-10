@@ -25,8 +25,9 @@ jobs:
               run: mvn clean package
             
             - name: Build docker image
-              run: docker build -t simple-jave-app:latest .
+              run: docker build -t prosperagada/welcome-app-java:latest .
             
             - name: Push docker image
-              run: docker push simple-jave-app:latest
-
+              run: |
+                docker login -u prosperagada -p ${{secrets.DOCKERHUB_TOKEN}}
+                docker push prosperagada/welcome-app-java:latest
